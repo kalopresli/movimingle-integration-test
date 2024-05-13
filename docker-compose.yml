@@ -38,6 +38,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
+    volumes:
+      - ./logs:/app/logs  # Adjust the container path as per your application's logging setup
     depends_on:
       cassandra:
         condition: service_healthy
