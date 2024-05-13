@@ -59,10 +59,9 @@ services:
     volumes:
       - cassandra_data:/var/lib/cassandra/data
     healthcheck:
-      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE TABLES'"]
-      interval: 30s
-      sleep: 30s
-      timeout: 10s
+      test: ["CMD-SHELL", "cqlsh -e 'SELECT * FROM system.local;'"]
+      interval: 20s
+      timeout: 5s
       retries: 5
     networks:
       - backend
