@@ -48,7 +48,6 @@ services:
     networks:
       - backend
 
-services:
   cassandra:
     image: cassandra:4
     environment:
