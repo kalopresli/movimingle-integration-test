@@ -50,7 +50,9 @@ services:
 
   cassandra:
     image: cassandra:4
-    command: bash -c "while ! cqlsh -e 'describe cluster'; do sleep 10; done && cqlsh -e 'CREATE KEYSPACE IF NOT EXISTS spring_cassandra WITH replication = {''class'': ''SimpleStrategy'', ''replication_factor'': 1};'"
+    command: >
+      bash -c "while ! cqlsh -e 'describe cluster'; do sleep 10; done &&
+      cqlsh -e \"CREATE KEYSPACE IF NOT EXISTS spring_cassandra WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};\""
     environment:
       CASSANDRA_CLUSTER_NAME: VotingCluster
       CASSANDRA_DC: DC1
