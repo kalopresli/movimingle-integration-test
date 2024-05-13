@@ -37,7 +37,9 @@ jobs:
       - name: Check logs for the message
         id: check_logs
         run: |
-          if grep -q 'Hello' ./logs/voting-service.log; then
+          mkdir -p artifacts/logs  # Ensure the directory exists
+          cp ./logs/voting-service.log artifacts/logs/  # Copy logs to a known location
+          if grep -q 'Hello' artifacts/logs/voting-service.log; then
             echo "::set-output name=message_status::found"
           else
             echo "::set-output name=message_status::not found"
@@ -47,6 +49,12 @@ jobs:
       - name: Output result
         if: steps.check_logs.outputs.message_status == 'found'
         run: echo "Test message received by the voting service."
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: artifacts/logs/
 
       - name: Clean up
         run: docker-compose down
