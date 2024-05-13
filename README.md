@@ -31,3 +31,53 @@ Clone this repository and its submodules:
 ```bash
 git clone --recurse-submodules https://github.com/yourusername/movimingle-integration-tests.git
 cd movimingle-integration-tests
+```
+
+If you've already cloned the repository without the submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+## Running Tests
+
+The integration tests are automated via GitHub Actions. However, if you wish to run them manually, you can do so as follows:
+
+### Start all services:
+
+```bash
+docker-compose up -d --build
+```
+
+### Check the status of services:
+
+```bash
+docker-compose ps
+```
+
+### Run the integration tests:
+This involves making HTTP calls to the services to test their interaction.
+```bash
+curl -f http://localhost:8080/send?message=Hello
+# Add more commands as necessary
+```
+
+### Shut down the services:
+
+```bash
+docker-compose down
+```
+
+## GitHub Actions
+
+Integration tests are automatically triggered by pushes to the main branch or pull requests. You can view the results of these tests in the Actions tab of this repository.
+
+## Updating Submodules
+
+To update the submodules to the latest commit of their respective main branches:
+
+```bash
+git submodule update --remote --merge
+git commit -am "Update submodules"
+git push
+```
