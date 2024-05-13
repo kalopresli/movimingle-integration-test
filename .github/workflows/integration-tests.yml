@@ -32,13 +32,13 @@ jobs:
           echo "Message sent to the voting service."
 
       - name: Wait for log file update
-        run: sleep 30  # Adjust the timing as necessary
+        run: sleep 10  # Adjust the timing as necessary
 
       - name: Check logs for the message
         id: check_logs
         run: |
           mkdir -p artifacts/logs  # Ensure the directory exists
-          cp ./logs/voting-service.log artifacts/logs/  # Copy logs to a known location
+          cp ./app/logs/voting-service.log artifacts/logs/  # Copy logs to a known location
           if grep -q 'Hello' artifacts/logs/voting-service.log; then
             echo "::set-output name=message_status::found"
           else
