@@ -32,7 +32,7 @@ jobs:
           echo "Message sent to the voting service."
 
       - name: Wait for log file update
-        run: sleep 10  # Adjust the timing as necessary
+        run: sleep 30  # Adjust the timing as necessary
 
       - name: Check logs for the message
         id: check_logs
