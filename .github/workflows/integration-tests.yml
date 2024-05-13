@@ -44,7 +44,7 @@ jobs:
         continue-on-error: true
 
       - name: Wait for log file update
-        run: sleep 10
+        run: sleep 60
 
       - name: Collect all files for diagnostics
         run: |
