@@ -1,6 +1,8 @@
 [submodule "favorites-management-service"]
 	path = favorites-management-service
 	url = https://github.com/kalopresli/movimingle-favorites-management-service.git
+	branch = development
 [submodule "voting-service"]
 	path = voting-service
 	url = https://github.com/kalopresli/movimingle-voting-service.git
+    branch = development
