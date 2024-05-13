@@ -29,10 +29,10 @@ jobs:
       - name: Send test message
         run: |
           curl -f http://localhost:8080/send?message=Hello
-          echo "Message sent to the voting service."
+          echo " Message sent to the voting service."
 
       - name: Wait for log file update
-        run: sleep 90
+        run: sleep 10
 
       - name: Check logs for the message
         id: check_logs
