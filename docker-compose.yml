@@ -61,6 +61,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE TABLES'"]
       interval: 30s
+      sleep: 30s
       timeout: 10s
       retries: 5
     networks:
