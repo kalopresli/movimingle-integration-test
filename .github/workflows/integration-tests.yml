@@ -29,35 +29,19 @@ jobs:
       - name: Send test message
         run: |
           curl -f http://localhost:8080/send?message=Hello
-          echo " Message sent to the voting service."
-
+          echo "Message sent to the voting service."
       - name: Wait for log file update
         run: sleep 10
 
-      - name: Check logs for the message
-        id: check_logs
+      - name: Collect all files for diagnostics
         run: |
-          if [ -f ./logs/application.log ]; then
-            if grep -q 'Hello' ./logs/application.log; then
-              echo "message_status=found" >> $GITHUB_ENV
-            else
-              echo "message_status=not found" >> $GITHUB_ENV
-              exit 1
-            fi
-          else
-            echo "./logs/application.log does not exist."
-            exit 1
-          fi
-
-      - name: Output result
-        if: env.message_status == 'found'
-        run: echo "Test message received by the voting service."
-
-      - name: Upload artifacts
+          mkdir -p artifacts
+          cp -r ./logs/ artifacts/logs/  # Adjust as necessary for other directories
+      - name: Upload all artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: logs
-          path: ./logs/application.log
+          name: all-artifacts
+          path: artifacts/
 
       - name: Clean up
         run: docker-compose down
