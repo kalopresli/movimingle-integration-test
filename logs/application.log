@@ -298,3 +298,117 @@ Caused by: com.datastax.oss.driver.api.core.InvalidKeyspaceException: Invalid ke
 2024-05-13T19:04:26.098Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
 2024-05-13T19:04:26.351Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
 2024-05-13T19:04:26.357Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:12:14.089Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Starting VotingServiceApplication using Java 17.0.2 with PID 1 (/app.jar started by root in /)
+2024-05-13T19:12:14.098Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-05-13T19:12:15.110Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Cassandra repositories in DEFAULT mode.
+2024-05-13T19:12:15.165Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 44 ms. Found 0 Reactive Cassandra repository interfaces.
+2024-05-13T19:12:15.189Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Cassandra repositories in DEFAULT mode.
+2024-05-13T19:12:15.216Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 1 Cassandra repository interface.
+2024-05-13T19:12:15.876Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-05-13T19:12:15.889Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-13T19:12:15.891Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-13T19:12:15.936Z  INFO 1 --- [voting-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-13T19:12:15.937Z  INFO 1 --- [voting-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1728 ms
+2024-05-13T19:12:16.427Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.core.DefaultMavenCoordinates   : DataStax Java driver for Apache Cassandra(R) (com.datastax.oss:java-driver-core) version 4.17.0
+2024-05-13T19:12:16.567Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.c.c.CqlPrepareAsyncProcessor   : Adding handler to invalidate cached prepared statements on type changes
+2024-05-13T19:12:16.981Z  INFO 1 --- [voting-service] [s0-admin-0] c.d.oss.driver.internal.core.time.Clock  : Using native clock for microsecond precision
+2024-05-13T19:12:18.723Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2024-05-13T19:12:18.728Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+2024-05-13T19:12:18.846Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#504497fa:0/SimpleConnection@1a7d0c9f [delegate=amqp://guest@172.27.0.2:5672/, localPort=39134]
+2024-05-13T19:12:18.857Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (myQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:12:18.858Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (votingToFavoritesQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:12:18.924Z  WARN 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Failed to declare queue: favoritesToVotingQueue
+2024-05-13T19:12:18.925Z  WARN 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Queue declaration failed; retries left=3
+
+org.springframework.amqp.rabbit.listener.BlockingQueueConsumer$DeclarationException: Failed to declare queue(s):[favoritesToVotingQueue]
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.attemptPassiveDeclarations(BlockingQueueConsumer.java:773) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.passiveDeclarations(BlockingQueueConsumer.java:650) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:637) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1479) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+Caused by: java.io.IOException: null
+	at com.rabbitmq.client.impl.AMQChannel.wrap(AMQChannel.java:140) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.wrap(AMQChannel.java:136) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.exnWrappingRpc(AMQChannel.java:158) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.ChannelN.queueDeclarePassive(ChannelN.java:1033) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.ChannelN.queueDeclarePassive(ChannelN.java:47) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory$CachedChannelInvocationHandler.invoke(CachingConnectionFactory.java:1204) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	at jdk.proxy2/jdk.proxy2.$Proxy117.queueDeclarePassive(Unknown Source) ~[na:na]
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.attemptPassiveDeclarations(BlockingQueueConsumer.java:751) ~[spring-rabbit-3.1.4.jar!/:3.1.4]
+	... 5 common frames omitted
+Caused by: com.rabbitmq.client.ShutdownSignalException: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no queue 'favoritesToVotingQueue' in vhost '/', class-id=50, method-id=10)
+	at com.rabbitmq.utility.ValueOrException.getValue(ValueOrException.java:66) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.utility.BlockingValueOrException.uninterruptibleGetValue(BlockingValueOrException.java:36) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel$BlockingRpcContinuation.getReply(AMQChannel.java:552) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.privateRpc(AMQChannel.java:316) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.exnWrappingRpc(AMQChannel.java:152) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	... 14 common frames omitted
+Caused by: com.rabbitmq.client.ShutdownSignalException: channel error; protocol method: #method<channel.close>(reply-code=404, reply-text=NOT_FOUND - no queue 'favoritesToVotingQueue' in vhost '/', class-id=50, method-id=10)
+	at com.rabbitmq.client.impl.ChannelN.asyncShutdown(ChannelN.java:528) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.ChannelN.processAsync(ChannelN.java:349) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.handleCompleteInboundCommand(AMQChannel.java:193) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQChannel.handleFrame(AMQChannel.java:125) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQConnection.readFrame(AMQConnection.java:761) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQConnection.access$400(AMQConnection.java:48) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	at com.rabbitmq.client.impl.AMQConnection$MainLoop.run(AMQConnection.java:688) ~[amqp-client-5.19.0.jar!/:5.19.0]
+	... 1 common frames omitted
+
+2024-05-13T19:12:23.933Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-1] o.s.a.r.listener.BlockingQueueConsumer   : Queue declaration succeeded after retrying
+2024-05-13T19:12:23.942Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Started VotingServiceApplication in 10.709 seconds (process running for 11.476)
+2024-05-13T19:14:11.803Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:14:11.805Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:14:11.937Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:14:11.957Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:15:30.476Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Starting VotingServiceApplication using Java 17.0.2 with PID 1 (/app.jar started by root in /)
+2024-05-13T19:15:30.483Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-05-13T19:15:31.286Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Cassandra repositories in DEFAULT mode.
+2024-05-13T19:15:31.334Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 40 ms. Found 0 Reactive Cassandra repository interfaces.
+2024-05-13T19:15:31.342Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Cassandra repositories in DEFAULT mode.
+2024-05-13T19:15:31.360Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 1 Cassandra repository interface.
+2024-05-13T19:15:31.798Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-05-13T19:15:31.810Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-13T19:15:31.812Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-13T19:15:31.852Z  INFO 1 --- [voting-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-13T19:15:31.854Z  INFO 1 --- [voting-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1258 ms
+2024-05-13T19:15:32.182Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.core.DefaultMavenCoordinates   : DataStax Java driver for Apache Cassandra(R) (com.datastax.oss:java-driver-core) version 4.17.0
+2024-05-13T19:15:32.286Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.c.c.CqlPrepareAsyncProcessor   : Adding handler to invalidate cached prepared statements on type changes
+2024-05-13T19:15:32.621Z  INFO 1 --- [voting-service] [s0-admin-0] c.d.oss.driver.internal.core.time.Clock  : Using native clock for microsecond precision
+2024-05-13T19:15:34.998Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2024-05-13T19:15:35.002Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+2024-05-13T19:15:35.158Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#113dcaf8:0/SimpleConnection@343db2f6 [delegate=amqp://guest@172.28.0.3:5672/, localPort=42634]
+2024-05-13T19:15:35.165Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (myQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:15:35.166Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (votingToFavoritesQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:15:35.215Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Started VotingServiceApplication in 5.41 seconds (process running for 6.06)
+2024-05-13T19:28:46.486Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:28:46.488Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:28:47.316Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:28:47.316Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:30:01.846Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Starting VotingServiceApplication using Java 17.0.2 with PID 1 (/app.jar started by root in /)
+2024-05-13T19:30:01.854Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-05-13T19:30:02.981Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Reactive Cassandra repositories in DEFAULT mode.
+2024-05-13T19:30:03.059Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 0 Reactive Cassandra repository interfaces.
+2024-05-13T19:30:03.068Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Cassandra repositories in DEFAULT mode.
+2024-05-13T19:30:03.098Z  INFO 1 --- [voting-service] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 1 Cassandra repository interface.
+2024-05-13T19:30:03.873Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-05-13T19:30:03.900Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-05-13T19:30:03.902Z  INFO 1 --- [voting-service] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-05-13T19:30:04.007Z  INFO 1 --- [voting-service] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-05-13T19:30:04.011Z  INFO 1 --- [voting-service] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2037 ms
+2024-05-13T19:30:04.567Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.core.DefaultMavenCoordinates   : DataStax Java driver for Apache Cassandra(R) (com.datastax.oss:java-driver-core) version 4.17.0
+2024-05-13T19:30:04.713Z  INFO 1 --- [voting-service] [main] c.d.o.d.i.c.c.CqlPrepareAsyncProcessor   : Adding handler to invalidate cached prepared statements on type changes
+2024-05-13T19:30:05.073Z  INFO 1 --- [voting-service] [s0-admin-0] c.d.oss.driver.internal.core.time.Clock  : Using native clock for microsecond precision
+2024-05-13T19:30:07.625Z  INFO 1 --- [voting-service] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path ''
+2024-05-13T19:30:07.629Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [rabbitmq:5672]
+2024-05-13T19:30:07.765Z  INFO 1 --- [voting-service] [main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2e2f20b8:0/SimpleConnection@466fedfa [delegate=amqp://guest@172.28.0.3:5672/, localPort=56888]
+2024-05-13T19:30:07.776Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (myQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:30:07.776Z  INFO 1 --- [voting-service] [main] o.s.amqp.rabbit.core.RabbitAdmin         : Auto-declaring a non-durable, auto-delete, or exclusive Queue (votingToFavoritesQueue) durable:false, auto-delete:false, exclusive:false. It will be redeclared if the broker stops and is restarted while the connection factory is alive, but all messages will be lost.
+2024-05-13T19:30:07.835Z  INFO 1 --- [voting-service] [main] c.b.v.VotingServiceApplication           : Started VotingServiceApplication in 6.787 seconds (process running for 7.529)
+2024-05-13T19:30:40.548Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:30:40.549Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-05-13T19:30:40.830Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-05-13T19:30:40.835Z  INFO 1 --- [voting-service] [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
