@@ -56,15 +56,27 @@ services:
       CASSANDRA_RACK: Rack1
     ports:
       - "9042:9042"
-    volumes:
-      - cassandra_data:/var/lib/cassandra/data
+      - "7000:7000"
     healthcheck:
-      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE TABLES'"]
+      test: ["CMD-SHELL", "cqlsh -e 'SELECT now() FROM system.local;'"]
       interval: 30s
       timeout: 10s
       retries: 5
     networks:
       - backend
+
+  init-cassandra:
+    image: cassandra:4
+    depends_on:
+      cassandra:
+        condition: service_healthy
+    restart: "no"
+    entrypoint: ["/bin/bash", "-c", "./init-cassandra.sh"]
+    volumes:
+      - ./init-cassandra.sh:/init-cassandra.sh
+    networks:
+      - backend
+
 
   rabbitmq:
     image: rabbitmq:3-management
