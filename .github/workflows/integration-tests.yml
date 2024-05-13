@@ -1,6 +1,6 @@
 name: Integration Tests
 
-on:
+on: 
   push:
     branches:
       - main
@@ -11,6 +11,16 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    services:
+      cassandra:
+        image: cassandra:4
+        ports:
+          - 9042:9042
+      rabbitmq:
+        image: rabbitmq:3-management
+        ports:
+          - 5672:5672
+          - 15672:15672
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -26,10 +36,27 @@ jobs:
       - name: Check services are running
         run: docker-compose ps
 
-      - name: Run integration test
+      - name: Send test message
         run: |
           curl -f http://localhost:8080/send?message=Hello
-          # Add additional tests as needed
+          echo "Message sent to the voting service."
+
+      - name: Wait for log file update
+        run: sleep 10  # Adjust the timing as necessary
+
+      - name: Check logs for the message
+        id: check_logs
+        run: |
+          if grep -q 'Hello' ./logs/voting-service.log; then
+            echo "::set-output name=message_status::found"
+          else
+            echo "::set-output name=message_status::not found"
+            exit 1
+          fi
+
+      - name: Output result
+        if: steps.check_logs.outputs.message_status == 'found'
+        run: echo "Test message received by the voting service."
 
       - name: Clean up
         run: docker-compose down
