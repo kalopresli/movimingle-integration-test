@@ -34,16 +34,30 @@ jobs:
       - name: Wait for log file update
         run: sleep 10
 
-      - name: Collect all files for diagnostics
+      - name: Check logs for the message
+        id: check_logs
         run: |
-          mkdir -p artifacts
-          cp -r ./logs/ artifacts/logs/  # Adjust as necessary for other directories
+          if [ -f ./logs/application.log ]; then
+            if grep -q 'Hello' ./logs/application.log; then
+              echo "message_status=found" >> $GITHUB_ENV
+            else
+              echo "message_status=not found" >> $GITHUB_ENV
+              exit 1
+            fi
+          else
+            echo "./logs/application.log does not exist."
+            exit 1
+          fi
 
-      - name: Upload all artifacts
+      - name: Output result
+        if: env.message_status == 'found'
+        run: echo "Test message received by the voting service."
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: all-artifacts
-          path: artifacts/
+          name: logs
+          path: ./logs/application.log
 
       - name: Clean up
         run: docker-compose down
