@@ -58,11 +58,18 @@ services:
       - "9042:9042"
     volumes:
       - cassandra_data:/var/lib/cassandra/data
+      - ./cassandra/init-db.cql:/etc/cassandra/init-db.cql  # Mount the init script
     healthcheck:
       test: ["CMD-SHELL", "cqlsh -e 'SELECT * FROM system.local;'"]
-      interval: 20s
-      timeout: 5s
+      interval: 30s
+      timeout: 10s
       retries: 5
+    entrypoint: /bin/sh
+    command: >
+      -c 'echo "Waiting for Cassandra to start up..." &&
+      sleep 60 &&  # Wait for Cassandra to be ready
+      cqlsh -f /etc/cassandra/init-db.cql &&  # Execute the keyspace creation script
+      exec /docker-entrypoint.sh cassandra -f'  # Continue with normal Cassandra start up
     networks:
       - backend
 
