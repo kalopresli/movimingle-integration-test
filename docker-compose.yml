@@ -59,13 +59,13 @@ services:
       - "7000:7000"
     volumes:
       - cassandra_data:/var/lib/cassandra/data
-    networks:
-      - backend
     healthcheck:
-      test: ["CMD-SHELL", "cqlsh -e \"SELECT keyspace_name FROM system_schema.keyspaces WHERE keyspace_name = 'spring_cassandra';\" | grep 'spring_cassandra'"]
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE TABLES'"]
       interval: 10s
       timeout: 5s
       retries: 10
+    networks:
+      - backend
 
   init-cassandra:
     image: cassandra:4
