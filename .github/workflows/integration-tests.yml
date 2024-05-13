@@ -11,16 +11,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    services:
-      cassandra:
-        image: cassandra:4
-        ports:
-          - 9042:9042
-      rabbitmq:
-        image: rabbitmq:3-management
-        ports:
-          - 5672:5672
-          - 15672:15672
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
