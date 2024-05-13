@@ -38,7 +38,6 @@ jobs:
         run: |
           mkdir -p artifacts
           cp -r ./logs/ artifacts/logs/  # Adjust as necessary for other directories
-          cp -r /path/to/other/important/files/ artifacts/other_files/
 
       - name: Upload all artifacts
         uses: actions/upload-artifact@v2
