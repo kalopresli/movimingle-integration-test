@@ -1,0 +1,35 @@
+name: Integration Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          submodules: true  # Ensure submodules are checked out
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and start services
+        run: docker-compose up -d --build
+
+      - name: Check services are running
+        run: docker-compose ps
+
+      - name: Run integration test
+        run: |
+          curl -f http://localhost:8080/send?message=Hello
+          # Add additional tests as needed
+
+      - name: Clean up
+        run: docker-compose down

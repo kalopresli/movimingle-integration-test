@@ -1,0 +1,91 @@
+version: '3.8'
+services:
+  favorites-service:
+    build:
+      context: ./favorites-management-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: favorites_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user -d favorites_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  voting-service:
+    build:
+      context: ./voting-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      cassandra:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - backend
+
+  cassandra:
+    image: cassandra:4
+    environment:
+      CASSANDRA_CLUSTER_NAME: VotingCluster
+      CASSANDRA_DC: DC1
+      CASSANDRA_RACK: Rack1
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data:/var/lib/cassandra/data
+    healthcheck:
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE TABLES'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Management interface
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend
+
+
+volumes:
+  postgres_data:
+  cassandra_data:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
