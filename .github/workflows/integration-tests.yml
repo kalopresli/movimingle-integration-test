@@ -38,8 +38,8 @@ jobs:
         id: check_logs
         run: |
           mkdir -p artifacts/logs  # Ensure the directory exists
-          cp ./app/logs/voting-service.log artifacts/logs/  # Copy logs to a known location
-          if grep -q 'Hello' artifacts/logs/voting-service.log; then
+          cp ./logs/application.log artifacts/logs/  # Copy logs to a known location
+          if grep -q 'Hello' artifacts/logs/application.log; then
             echo "::set-output name=message_status::found"
           else
             echo "::set-output name=message_status::not found"
