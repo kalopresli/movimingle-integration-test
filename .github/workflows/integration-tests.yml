@@ -23,30 +23,15 @@ jobs:
       - name: Set executable permissions for scripts
         run: chmod +x ./init-cassandra.sh
 
-      - name: Archive Repository
+      - name: Build and start services
         run: |
-          zip -r repository.zip .
-
-      - name: Build services
-        run: docker-compose build
-        continue-on-error: true
-
-      - name: Start services
-        run: docker-compose up -d
-        continue-on-error: true
-
-      - name: Check Docker Compose Services
-        run: docker-compose ps
-
-      - name: Check Docker Container Logs
-        run: docker-compose logs
-        continue-on-error: true
+          docker-compose build
+          docker-compose up -d
 
       - name: Send test message
         run: |
           curl -f http://localhost:8080/send?message=Hello
           echo "Message sent to the voting service."
-        continue-on-error: true
 
       - name: Wait for log file update
         run: sleep 10
@@ -54,17 +39,16 @@ jobs:
       - name: Verify Message in Application Logs
         run: |
           if [ -f ./logs/application.log ] && grep -q "Hello" ./logs/application.log; then
-            echo "Message found in application logs."
+            echo " Message found in application logs."
           else
-            echo "Message not found in application logs."
+            echo " Message not found in application logs."
             exit 1
           fi
 
-      - name: Collect all files for diagnostics
+      - name: Collect and upload logs
         run: |
           mkdir -p artifacts
-          docker-compose logs > artifacts/docker-logs.log
-          cp -r ./logs/ artifacts/logs/
+          cp ./logs/application.log artifacts/
         continue-on-error: true
 
       - name: Upload all artifacts
@@ -75,6 +59,3 @@ jobs:
 
       - name: Clean up
         run: docker-compose down
-
-      - name: Check final Docker Container Logs
-        run: docker-compose logs
