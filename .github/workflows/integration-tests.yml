@@ -51,12 +51,12 @@ jobs:
       - name: Wait for log file update
         run: sleep 10
 
-      - name: Verify Message in Logs
+      - name: Verify Message in Application Logs
         run: |
-          if grep -q "Hello" artifacts/docker-logs.log; then
-            echo "Message found in logs."
+          if [ -f ./logs/application.log ] && grep -q "Hello" ./logs/application.log; then
+            echo "Message found in application logs."
           else
-            echo "Message not found in logs."
+            echo "Message not found in application logs."
             exit 1
           fi
 
