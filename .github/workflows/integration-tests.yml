@@ -29,12 +29,10 @@ jobs:
 
       - name: Build services
         run: docker-compose build
-        # Add logging to catch any errors during the build process
         continue-on-error: true
 
       - name: Start services
         run: docker-compose up -d
-        # Check the logs after starting services to diagnose issues
         continue-on-error: true
 
       - name: Check Docker Compose Services
@@ -44,29 +42,29 @@ jobs:
         run: docker-compose logs
         continue-on-error: true
 
-      - name: Upload Docker Container Logs
-        uses: actions/upload-artifact@v2
-        if: failure() # This condition makes sure logs are uploaded only when a failure occurs
-        with:
-          name: docker-logs
-          path: ./docker-logs.log
-
       - name: Send test message
         run: |
           curl -f http://localhost:8080/send?message=Hello
           echo "Message sent to the voting service."
-        # Ensure you add handling for possible failure in sending message
         continue-on-error: true
 
       - name: Wait for log file update
         run: sleep 10
 
+      - name: Verify Message in Logs
+        run: |
+          if grep -q "Hello" artifacts/docker-logs.log; then
+            echo "Message found in logs."
+          else
+            echo "Message not found in logs."
+            exit 1
+          fi
+
       - name: Collect all files for diagnostics
         run: |
           mkdir -p artifacts
           docker-compose logs > artifacts/docker-logs.log
-          cp -r ./logs/ artifacts/logs/  # Adjust as necessary for other directories
-        # Ensure this step handles cases where logs might not exist or be accessible
+          cp -r ./logs/ artifacts/logs/
         continue-on-error: true
 
       - name: Upload all artifacts
