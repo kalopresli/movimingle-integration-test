@@ -20,6 +20,10 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1
 
+      - name: Archive Repository
+        run: |
+          zip -r repository.zip .
+
       - name: Build services
         run: docker-compose build
         # Add logging to catch any errors during the build process
@@ -44,7 +48,7 @@ jobs:
         continue-on-error: true
 
       - name: Wait for log file update
-        run: sleep 60
+        run: sleep 10
 
       - name: Collect all files for diagnostics
         run: |
