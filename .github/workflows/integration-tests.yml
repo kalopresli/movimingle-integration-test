@@ -20,6 +20,9 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v1
 
+      - name: Set executable permissions for scripts
+        run: chmod +x ./init-cassandra.sh
+
       - name: Archive Repository
         run: |
           zip -r repository.zip .
@@ -39,6 +42,14 @@ jobs:
 
       - name: Check Docker Container Logs
         run: docker-compose logs
+        continue-on-error: true
+
+      - name: Upload Docker Container Logs
+        uses: actions/upload-artifact@v2
+        if: failure() # This condition makes sure logs are uploaded only when a failure occurs
+        with:
+          name: docker-logs
+          path: ./docker-logs.log
 
       - name: Send test message
         run: |
@@ -53,6 +64,7 @@ jobs:
       - name: Collect all files for diagnostics
         run: |
           mkdir -p artifacts
+          docker-compose logs > artifacts/docker-logs.log
           cp -r ./logs/ artifacts/logs/  # Adjust as necessary for other directories
         # Ensure this step handles cases where logs might not exist or be accessible
         continue-on-error: true
