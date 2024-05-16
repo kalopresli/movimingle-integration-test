@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   favorites-service:
-    build:
-      context: ./favorites-management-service
-      dockerfile: Dockerfile
+    image: ghcr.io/kalopresli/movimingle-integration-test/favorites-service:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -33,9 +31,7 @@ services:
       - backend
 
   voting-service:
-    build:
-      context: ./voting-service
-      dockerfile: Dockerfile
+    image: ghcr.io/kalopresli/movimingle-integration-test/voting-service:latest
     ports:
       - "8081:8081"
     volumes:
