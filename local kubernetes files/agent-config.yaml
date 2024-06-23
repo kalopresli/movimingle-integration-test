@@ -5,17 +5,17 @@ externalServices:
     host: https://prometheus-prod-24-prod-eu-west-2.grafana.net
     basicAuth:
       username: "1601239"
-      password: glc_eyJvIjoiMTEzNDUxNiIsIm4iOiJzdGFjay05NDI3NzUtaW50ZWdyYXRpb24tbW92aW1pbmdsZS0yLW1vdmltaW5nbGUtMiIsImsiOiJaOTcxM0JpM3I4V0E1ME96Nk1LaVlSTjIiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ==
+      password: 
   loki:
     host: https://logs-prod-012.grafana.net
     basicAuth:
       username: "900556"
-      password: glc_eyJvIjoiMTEzNDUxNiIsIm4iOiJzdGFjay05NDI3NzUtaW50ZWdyYXRpb24tbW92aW1pbmdsZS0yLW1vdmltaW5nbGUtMiIsImsiOiJaOTcxM0JpM3I4V0E1ME96Nk1LaVlSTjIiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ==
+      password: 
   tempo:
     host: https://tempo-prod-10-prod-eu-west-2.grafana.net:443
     basicAuth:
       username: "894872"
-      password: glc_eyJvIjoiMTEzNDUxNiIsIm4iOiJzdGFjay05NDI3NzUtaW50ZWdyYXRpb24tbW92aW1pbmdsZS0yLW1vdmltaW5nbGUtMiIsImsiOiJaOTcxM0JpM3I4V0E1ME96Nk1LaVlSTjIiLCJtIjp7InIiOiJwcm9kLWV1LXdlc3QtMiJ9fQ==
+      password: 
 metrics:
   enabled: true
   cost:
