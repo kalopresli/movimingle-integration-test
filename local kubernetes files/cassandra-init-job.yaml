@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cassandra-keyspace-init
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-keyspace
+        image: cassandra:5
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            # Wait until Cassandra is ready
+            until cqlsh cassandra 9042 -e "SELECT now() FROM system.local"; do
+              echo "Waiting for Cassandra to be ready..."
+              sleep 10
+            done
+            echo "Cassandra is ready. Creating keyspace..."
+            # Create the keyspace if it doesn't exist
+            cqlsh cassandra 9042 -e "CREATE KEYSPACE IF NOT EXISTS spring_cassandra WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};"
+            echo "Keyspace creation complete."
+      restartPolicy: OnFailure

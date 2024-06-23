@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.31.2 (a92241f79)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: voting-service
+  name: voting-service
+spec:
+  type: NodePort
+  ports:
+    - name: "8081"
+      port: 8081
+      targetPort: 8081
+      nodePort: 30001
+  selector:
+    io.kompose.service: voting-service
+status:
+  loadBalancer: {}

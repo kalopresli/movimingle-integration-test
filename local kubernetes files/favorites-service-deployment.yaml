@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: favorites-service
+  labels:
+    io.kompose.service: favorites-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      io.kompose.service: favorites-service
+  template:
+    metadata:
+      labels:
+        io.kompose.service: favorites-service
+    spec:
+      containers:
+      - name: favorites-service
+        image: ghcr.io/kalopresli/movimingle-integration-test/favorites-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+          - name: AUTH0_AUDIENCE
+            value: https://api.movimingle.com
+          - name: AUTH0_DOMAIN
+            value: dev-1stzxsysq7dqu1j0.us.auth0.com
+        resources: 
+            requests:
+              memory: 256M  # Setting memory request
+              cpu: 0.5  # Setting CPU request
+            limits:
+              memory: 512M  # Setting memory limit
+              cpu: 1  # Setting CPU limit
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: favorites-service-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: favorites-service
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+---

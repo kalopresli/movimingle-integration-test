@@ -1,0 +1,9 @@
+Steps done during development of Movimingle
+
+1. Install Maven
+2. Initialize 2 microservices
+3. Create a parent project
+4. Configure pom files
+5. "mvn clean install" in parent directory
+6. Run RabbitMQ in Docker
+7. Update test class to prevent Spring Boot from auto-configuring a data source!!!!!!!!!!!!!!!!!!!!!!!!!! (removed the annotation)

@@ -1,0 +1,25 @@
+LO1
+reference design document for fr and nfr
+tict etical+
+etical design document from group project +
+research report individual and group project (+Group)
+
+Research Report Contribution:
+	- Research Question Conclusion: What are the best/common practices when it comes to optimizing algorithms? (Group)
+	- Compare and align results with the previous group’s findings (Group)
+	- Atempts at optimizing method (Group)
+	- 3.1.5 Conclusion (Group)
+	- Research Question: 3.1.1 What is more important when optimising code: time complexity or space complexity? (Group)
+
+working in agile document 
+feedback reflection
+
+LO2
+Reseach plan +
+reference design document
+feedpulse chckpoints and peer reviews
+trello task board
+Test plan
+SonarCloud results screenshot
+Graduation preparation document
+feedback reflection

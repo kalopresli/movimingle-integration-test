@@ -1,0 +1,4 @@
+	- schemas/erds for the database
+	- rework db document and explain why the two dbs are unnecessary for the current project 
+	- explain the results from load tests and think about what the possible cscaling strategy is
+	- OWASP top 10 reflection

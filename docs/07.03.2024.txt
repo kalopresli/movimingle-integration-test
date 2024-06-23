@@ -1,0 +1,7 @@
+change user in user stories
+think about other user roles
+
+break down nfr-4 - think about the direction of the responsiveness; 
+come up with a number of an example requests per second and the delay/latency
+
+next - start researching about the tech stack. break down the application in to different micro services

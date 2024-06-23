@@ -1,0 +1,54 @@
+stages:
+  - compile
+  - build
+  - "deploy"
+
+variables:
+  MAVEN_CLI_OPTS: "-B -DskipTests"
+  IMAGE_TAG: "$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+
+compile_favorites_management_service:
+  stage: compile
+  image: maven:3.8.4-openjdk-17
+  script:
+    - cd MoviMingle/favorites-management-service
+    - mvn $MAVEN_CLI_OPTS clean package
+  only:
+    - development
+
+compile_voting_service:
+  stage: compile
+  image: maven:3.8.4-openjdk-17
+  script:
+    - cd MoviMingle/voting-service
+    - mvn $MAVEN_CLI_OPTS clean package
+  only:
+    - development
+build_favorites_management_service:
+  stage: build
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  script:
+    - cd MoviMingle/favorites-management-service
+    - docker build -t favorites-management-service:$IMAGE_TAG .
+  only:
+    - development
+
+build_voting_service:
+  stage: build
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  script:
+    - cd MoviMingle/voting-service
+    - docker build -t voting-service:$IMAGE_TAG .
+  only:
+    - development
+
+deploy_services:
+  stage: "deploy"
+  script:
+    - echo "Deploying services...(Replace this with real deployment commands)"
+  only:
+    - development

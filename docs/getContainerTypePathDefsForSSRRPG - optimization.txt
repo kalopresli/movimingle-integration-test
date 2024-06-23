@@ -1,0 +1,18 @@
+find the getContainerTypePathDefsForSSRRPG method in the src/main/java path
+try to micro benchmark the method getContainerTypePathDefsForSSRRPG by examining the test and making a benchcmark based on the method calls. 
+if not run benchmark for ot/gen/ssr ..._all_aps
+
+Optimize Filters: Combine filtering conditions to reduce the number of times data is processed.
+Example: Instead of filtering siblings in getPathDefsForRPG and then again checking isContainerTypeInSSR in getContainerTypePathDefsForSSRRPG, do both checks in one go.
+	 This makes the getPathDefsForRPG method redundant and possibly optmimizes the performance of getContainerTypePathDefsForSSRRPG because there are no separate method calls, which can enhance performance, especially if each method independently processes data through filtering or list conversion.
+
+getPathDefsForRPG filters siblingPathDefs based on whether rpgPathDef is an ancestor.
+getContainerTypePathDefsForSSRRPG then further filters the result based on whether each path def is a container type in SSR
+
+Lazy Evaluation: Wait to convert results into a list or another structure until absolutely necessary.
+Example: Use streams to handle data and only convert to a list at the end of processing.
+
+Use Caching: Save results of expensive operations that don’t change often, so they don’t need to be recalculated.
+Example: If getPathDefsForRPG is called multiple times with the same PathDef, store the result in a cache and reuse it.
+
+Use Parallelism: A potential improvement of performance if the data sets are large. This may not be helpful in the case that the data is smaller or the operations are not CPU-intensive.

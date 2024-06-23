@@ -1,0 +1,4 @@
+diagrams - c1, c2
+scaling 
+data management
+after that think about tech stack

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-frontend
+  template:
+    metadata:
+      labels:
+        app: react-frontend
+    spec:
+      containers:
+        - name: react-frontend
+          image: ghcr.io/kalopresli/movimingle-frontend-demo/movimingle-react-demo:v1.0.5
+          ports:
+            - containerPort: 80
+          env:
+            - name: REACT_APP_JWT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: REACT_APP_JWT_TOKEN
+            - name: REACT_APP_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: REACT_APP_API_URL

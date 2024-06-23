@@ -1,0 +1,3 @@
+research additional voting service
+research external movie api
+user requirements

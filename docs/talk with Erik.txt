@@ -1,0 +1,6 @@
+secret management in github
+docker networks
+ethical considerations - tict, data security
+sonar cloud
+
+reading guide - one document per lo with a paragraph per document/evidence and self assessment paragraph

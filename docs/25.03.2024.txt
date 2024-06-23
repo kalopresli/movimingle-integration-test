@@ -1,0 +1,3 @@
+sequence diagram and trial and error of programming to clear the goal and idea of the projec structure (preferabky start with the sequence diagram)
+
+functionality between the two services

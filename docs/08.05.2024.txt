@@ -1,0 +1,3 @@
+Integration tests 
+- look up how to boot up a docker compose in my pipeline
+- look up how to set up a test and to "talk/enable" it

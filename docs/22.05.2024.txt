@@ -1,0 +1,5 @@
+think about if I need everything to be in the cloud or in kubernetes
+
+next up:
+	- focus on security (auth0 and environment variables for docker compose and pipeline variables)
+	- after that think about monitoring and testing

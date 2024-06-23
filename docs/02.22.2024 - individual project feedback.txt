@@ -1,0 +1,15 @@
+Colaborative movie choosing application
+- Good project choice
+- Think about the scalability
+- Think about the data management
+- More appealing to Qin
+
+Car parts marketplace
+- Also a good project, but less interesting idea
+
+Project plan
+- functional requirements
+- non-functional requirements
+- user stories
+
+In the end I decided to go with the colaborative movie choosing application and have started working on the project plan.

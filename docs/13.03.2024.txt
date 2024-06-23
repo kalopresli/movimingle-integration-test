@@ -1,0 +1,1 @@
+Took a look at my C2 diagram, which needs revision. Authentication and authorization need to be rethought, because the diagram is unclear on how it fits into the application. I should think about whether to use external service for the authentication or no. Next, I need to start work on walking skeleton (2 services and messaging queue)

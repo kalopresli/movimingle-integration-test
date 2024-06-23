@@ -1,0 +1,4 @@
+fix communication
+fix diagram
+integration tests
+work on pipeline next
