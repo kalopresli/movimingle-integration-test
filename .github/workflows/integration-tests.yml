@@ -21,10 +21,10 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Set executable permissions for scripts
-        run: chmod +x ./init-cassandra.sh ./run-integration-tests.sh
+        run: chmod +x ./scripts/init-cassandra.sh ./scripts/run-integration-tests.sh
 
       - name: Run integration tests
-        run: ./run-integration-tests.sh
+        run: ./scripts/run-integration-tests.sh
 
       - name: Upload all artifacts
         uses: actions/upload-artifact@v2
